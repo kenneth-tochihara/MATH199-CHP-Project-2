@@ -23,4 +23,8 @@ F = Foul
 
 L = Foul bunt (Can strike out)
 
-X, D, E = In play
+X = In play, out(s)
+
+D = In play, no out
+
+E = In play, run(s)
