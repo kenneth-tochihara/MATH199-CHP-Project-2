@@ -61,9 +61,9 @@ labels_distribution = ['Fastballs', 'Offspeed']
 
 sizes_fastball = [data_fastball['STW'], data_fastball['C'], data_fastball['F'], data_fastball['X'], data_fastball['DE']]
 sizes_offspeed = [data_offspeed['STW'], data_offspeed['C'], data_offspeed['F'], data_offspeed['X'], data_offspeed['DE']]
+sizes_distribution = [data_fastball['count'], data_offspeed['count']]
 
 colors = ['#3B1F2B', '#DB162F', '#DBDFAC', '#5F758E', '#383961']
-colors = ['#FCD0A1', '#DB162F', '#DBDFAC', '#5F758E', '#AFD2E9']
 colors_distribution = ['#DBDFAC', '#5F758E']
 
 # fastballs figures
