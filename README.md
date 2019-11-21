@@ -28,3 +28,7 @@ X = In play, out(s)
 D = In play, no out
 
 E = In play, run(s)
+
+P = Pitchout (ball)
+
+O = Strike - Bunt Foul Tip
