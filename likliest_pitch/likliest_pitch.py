@@ -4,43 +4,39 @@
 #
 # Kenneth Tochihara
 
+import csv #to access csv files
+import matplotlib.pyplot as plt #to create cool graffs
 
-import csv #import library
-
+# This part gathers the data for the event that occured as a result of the pitch type
 with open('data/pitches.csv', mode = 'r') as csv_file:
     pitches = csv.DictReader(csv_file)
-    pitch = 0
-
-    fastballs = 0
-    offspeeds = 0
-
 
     #swinging strike, called strike, foul, hit out, hit on
     data_fastball = {'count': 0, 'STW': 0, 'C': 0, 'F': 0, 'X': 0, 'DE': 0}
     data_offspeed = {'count': 0, 'STW': 0, 'C': 0, 'F': 0, 'X': 0, 'DE': 0}
 
     for row in pitches:
-
+        #fastballs
         if row['Is Fastball'] == 'True':
             data_fastball['count'] += 1
 
-            if (row['Call'] == 'S') | (row['Call'] == 'T') | (row['Call'] == 'W'):
+            if (row['Call'] == 'S') | (row['Call'] == 'T') | (row['Call'] == 'W'): #swinging strike
                 data_fastball['STW'] += 1
 
-            if row['Call'] == 'C':
+            if row['Call'] == 'C': #called strike
                 data_fastball['C'] += 1
 
-            if row['Call'] == 'F':
+            if row['Call'] == 'F': #foul
                 data_fastball['F'] += 1
 
-            if row['Call'] == 'X':
+            if row['Call'] == 'X': #hit out
                 data_fastball['X'] += 1
 
-            if (row['Call'] == 'D') | (row['Call'] == 'E'):
+            if (row['Call'] == 'D') | (row['Call'] == 'E'): # hit in play
                 data_fastball['DE'] += 1
 
+        #offspeeds
         elif row['Is Fastball'] == 'False':
-            pitch += 1
             data_offspeed['count'] += 1
 
             if (row['Call'] == 'S') | (row['Call'] == 'T') | (row['Call'] == 'W'):
@@ -58,7 +54,19 @@ with open('data/pitches.csv', mode = 'r') as csv_file:
             if (row['Call'] == 'D') | (row['Call'] == 'E'):
                 data_offspeed['DE'] += 1
 
-print(pitch)
-print("~Results~\n")
-print("Fastballs: " + str(data_fastball['STW']) + ' ' + str(data_fastball['C']) + ' ' + str(data_fastball['F']) + ' ' + str(data_fastball['X']) + ' ' + str(data_fastball['DE']))
-print("Offspeeds: " + str(data_offspeed['STW']) + ' ' + str(data_offspeed['C']) + ' ' + str(data_offspeed['F']) + ' ' + str(data_offspeed['X']) + ' ' + str(data_offspeed['DE']))
+#This part analyzes the data into a pie chart
+
+labels = ['Swinging Strike', 'Called Strike', 'Foul', 'Hit Out', 'Hit Safe']
+
+sizes_fastball = [data_fastball['STW'], data_fastball['C'], data_fastball['F'], data_fastball['X'], data_fastball['DE']]
+sizes_offspeed = [data_offspeed['STW'], data_offspeed['C'], data_offspeed['F'], data_offspeed['X'], data_offspeed['DE']]
+
+colors = ['#3B1F2B', '#DB162F', '#DBDFAC', '#5F758E', '#383961']
+
+plt.pie(sizes_fastball, labels=labels, colors=colors, autopct='%1.1f%%')
+plt.title('Result Breakdown For Fastball Pitches')
+fig.savefig('figures/fastball.png')
+
+plt.pie(sizes_offspeed, labels=labels, colors=colors, autopct='%1.1f%%')
+plt.title('Result Breakdown For Offspeed Pitches')
+fig.savefig('figures/offspeed.png')
