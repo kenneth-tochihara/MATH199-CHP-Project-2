@@ -8,7 +8,7 @@ import csv #to access csv files
 import matplotlib.pyplot as plt #to create cool graffs
 
 # This part gathers the data for the event that occured as a result of the pitch type
-with open('data/pitches.csv', mode = 'r') as csv_file:
+with open('../data/pitches.csv', mode = 'r') as csv_file:
     pitches = csv.DictReader(csv_file)
 
     #swinging strike, called strike, foul, hit out, hit on
@@ -57,16 +57,30 @@ with open('data/pitches.csv', mode = 'r') as csv_file:
 #This part analyzes the data into a pie chart
 
 labels = ['Swinging Strike', 'Called Strike', 'Foul', 'Hit Out', 'Hit Safe']
+labels_distribution = ['Fastballs', 'Offspeed']
 
 sizes_fastball = [data_fastball['STW'], data_fastball['C'], data_fastball['F'], data_fastball['X'], data_fastball['DE']]
 sizes_offspeed = [data_offspeed['STW'], data_offspeed['C'], data_offspeed['F'], data_offspeed['X'], data_offspeed['DE']]
 
 colors = ['#3B1F2B', '#DB162F', '#DBDFAC', '#5F758E', '#383961']
+colors = ['#FCD0A1', '#DB162F', '#DBDFAC', '#5F758E', '#AFD2E9']
+colors_distribution = ['#DBDFAC', '#5F758E']
 
+# fastballs figures
 plt.pie(sizes_fastball, labels=labels, colors=colors, autopct='%1.1f%%')
 plt.title('Result Breakdown For Fastball Pitches')
-fig.savefig('figures/fastball.png')
+plt.savefig('figures/fastball.png')
 
+plt.clf() # clears
+
+# offspeeds figures
 plt.pie(sizes_offspeed, labels=labels, colors=colors, autopct='%1.1f%%')
 plt.title('Result Breakdown For Offspeed Pitches')
-fig.savefig('figures/offspeed.png')
+plt.savefig('figures/offspeed.png')
+
+plt.clf() # clears
+
+# pitch distribution figures
+plt.pie(sizes_distribution, labels=labels_distribution, colors=colors_distribution, autopct='%1.1f%%')
+plt.title('Result Breakdown For Pitches Thrown')
+plt.savefig('figures/distribution.png')
